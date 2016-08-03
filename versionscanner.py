@@ -24,8 +24,6 @@ class VersionScanner(object):
             yield k, v
 
     def scan(self):
-
-
         try:
             module = self.package
             modname = module.__name__
@@ -62,7 +60,7 @@ class VersionScanner(object):
                         sys.stdout = STDOUT
 
                         try:
-                            self.versions[modname] = module.__version__
+                            self.versions[modname] = module.__version__ or module.version or module._version
                         except AttributeError:
                             self.versions[modname] = None
 
