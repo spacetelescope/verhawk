@@ -1,0 +1,6 @@
+RELIC-INFO
+*/version.py
+build/
+dist/
+*.EGG-INFO
+__pycache__

@@ -1,15 +1,12 @@
-#!/usr/bin/env python
 from __future__ import print_function
 import json
 import os
 import pkgutil
 import sys
+from . import constants
 
 
-STDERR, STDOUT = sys.stderr, sys.stdout
-
-
-class VersionScanner(object):
+class Scanner(object):
     def __init__(self, package, exclusions=[], recursive=False, packages_only=False):
         self.package = package
         self.prefix = self.package.__name__ + '.'
@@ -57,7 +54,7 @@ class VersionScanner(object):
                             sys.stdout = devnull
                             module = importer.find_module(modname).load_module(modname)
 
-                        sys.stdout = STDOUT
+                        sys.stdout = constants.STDOUT
 
                         try:
                             self.versions[modname] = module.__version__ or module.version or module._version
@@ -81,52 +78,4 @@ class VersionScanner(object):
     def as_zip(self):
         return zip(self.versions.keys(), self.versions.values())
 
-
-if __name__ == '__main__':
-    import argparse
-    import importlib
-
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('parent_package')
-    parser.add_argument('-e', '--exclude',
-        action='append',
-        default=[],
-        help='Ignore sub-[package|module] by name.')
-    parser.add_argument('-v', '--verbose',
-        action='store_true',
-        help='Show packages without version data.')
-    parser.add_argument('-j', '--json',
-        action='store_true',
-        help='Emit JSON to stdout')
-    parser.add_argument('-p', '--packages-only',
-        action='store_true',
-        help='Ignore non-packages (i.e modules)')
-    parser.add_argument('-r', '--recursive',
-        action='store_true',
-        help='Descend into package looking for additional version data.')
-
-    args = parser.parse_args()
-
-    try:
-        with open(os.devnull, 'w') as devnull:
-            sys.stdout = devnull
-            parent_package = importlib.import_module(args.parent_package)
-
-        sys.stdout = STDOUT
-    except ImportError as e:
-        print(e, file=sys.stderr)
-        exit(1)
-
-    scanner = VersionScanner(parent_package, args.exclude, args.recursive, args.packages_only)
-
-
-    if args.json:
-        print(scanner.as_json())
-    else:
-        for pkg, version in sorted(scanner):
-            if not args.verbose and version is None:
-                continue
-
-            print('{0}={1}'.format(pkg, version))
 
