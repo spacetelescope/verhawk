@@ -4,7 +4,7 @@ A simple Python package version scanner.
 
 ## What isn't verhawk?
 
-A complex Python package version scanner. Verhawk does not account for every edge case, nor does it provide filtering of any kind. For example, depending how modules are nested for each sub-package you may even encounter output such as `"package.thing=module <module '/path/to/module/module.py'>"`, and it breaks JSON. In which case, use `--exclude` to remove the offending module from the output stream, or pipe `verhawk` through `grep` and filter such results, then convert the keypairs (`module=version`) manually.
+A complex Python package version scanner. Verhawk does not account for every edge case, nor does it provide advanced filtering of any kind. For example, depending how modules are nested for each sub-package you may even encounter output such as `"package.thing=module <module '/path/to/module/module.py'>"`, and it breaks JSON. In which case, use `--exclude` to remove the offending module from the output stream, or pipe `verhawk` through `grep` and filter such results, then convert the keypairs (`module=version`) manually.
 
 These are known issues and unlikely to be addressed.
 
