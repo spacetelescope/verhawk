@@ -16,7 +16,7 @@ setup(
     description='Extract version data from Python [sub]packages/modules',
     url='https://github.com/spacetelescope/verhawk',
     license='BSD',
-    classifiers = [
+    classifiers=[
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',

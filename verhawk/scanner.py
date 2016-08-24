@@ -74,8 +74,5 @@ class Scanner(object):
     def as_json(self):
         return json.dumps(self.versions, sort_keys=True)
 
-
     def as_zip(self):
         return zip(self.versions.keys(), self.versions.values())
-
-
