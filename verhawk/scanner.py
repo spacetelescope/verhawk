@@ -52,8 +52,10 @@ class Scanner(object):
                         module = None
                         with open(os.devnull, 'w') as devnull:
                             sys.stdout = devnull
-                            module = importer.find_module(modname).load_module(modname)
-
+                            try:
+                                module = importer.find_module(modname).load_module(modname)
+                            except (KeyError, FileNotFoundError):
+                                self.versions[modname] = None
                         sys.stdout = constants.STDOUT
 
                         try:
