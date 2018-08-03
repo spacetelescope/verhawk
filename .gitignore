@@ -2,5 +2,6 @@ RELIC-INFO
 */version.py
 build/
 dist/
+relic/
 *.EGG-INFO
 __pycache__
