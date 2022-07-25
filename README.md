@@ -1,3 +1,5 @@
+_**This software is no longer maintained or supported. Use at your own risk.**_
+
 # What is verhawk?
 
 A simple Python package version scanner. 
